@@ -1,0 +1,112 @@
+<!--Login Wrapper-->
+<!--Coming Soon-->
+<div class="mmeetings-login-wrapper bg-sc d-flex align-items-center justify-content-center">
+  <div class="coming-soon-wrapper text-center pt-lg-5">
+    <div class="mb-5">
+      <div class="row">
+        <div class="col responsive-login-panel">
+          <div class="login-inner-wrapper-2 shadow-box p-4" style="background-color: rgb(219, 219, 219);">
+            <div>
+              <div class="d-flex justify-content-center">
+                <h2 style="color: #4e4f55 !important;" class=" font-weight-normal mt-3">
+                  <strong>Bienvenu</strong>
+                </h2>
+              </div>
+              <div>
+                <img src="assets/img/new-mmeetings.png" alt="" style="width: 10rem; border: 0cm;">
+              </div>
+
+            </div>
+            <div class="mb-4 mt-5">
+              <h2 style="color: #2c3254 !important;" class="text-primary font-weight-normal">Connectez-vous à votre compte</h2>
+            </div>
+
+            <form>
+              <div>
+                <div class="alert alert-danger" *ngIf="authenticationError">
+                  <strong>{{'ERROR-MESSAGE1' }}</strong> {{'ERROR-MESSAGE2' }}
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control " placeholder="Login" name="email" [(ngModel)]="email">
+              </div>
+              <div class="form-group d-flex align-items-center">
+                <input [type]=" showPassword ? 'text' : 'password' " class="form-control " name="password"
+                  [(ngModel)]="password">
+                <div class="d-flex justify-content-end align-items-center">
+                  <div style="position: fixed !important;">
+                    <i (click)="showPassword = !showPassword"  class="fi fi-sr-eye mr-2"></i>
+
+                  </div>
+                </div>
+              </div>
+              <div class="login-meta mb-3">
+                <div class="row">
+                  <div class="col-12 col-sm-6 col-md-6">
+                    <div class="custom-control custom-checkbox">
+                      <div class="mb-2 mr-sm-2 mb-sm-0 d-flex align-items-center">
+                        <input class="mr-2" type="checkbox"
+                          name="rememberMe" id="login-remember" style="background-color: #009999 !important;" [(ngModel)]="rememberMe">
+                        
+                        <span class="custom-control-description d-inline-block align-text-top">Souviens-toi de moi</span>
+                      </div>
+                    </div>
+                  </div>
+       
+                </div>
+              </div>
+              <button type="submit" (click)="login()" class="btn mmeetings_green_btn"
+                style="font-size: 20px;padding-left: 30px; padding-right: 30px; background-color: #3f51b5; color: white; ">Connexion</button>
+        <!--       <div class="mt-3">
+                <a routerLink="/session/forget-password" class="text-muted"><strong>{{'Forgot Password'}}
+                    ?</strong></a>
+              </div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalRejectOpportunity let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title" style="font-weight: bold">{{'REMINDER'  }}</h5>
+    <button (click)="close()" class="close" color="warning">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'PLEASE_ASSIGN_PROJECT_MANAGERS_TO_THE_FOLLOWING_BOOKINGS'  }}</p>
+    <B *ngFor="let booking of bookings">{{booking.id}} <br></B>
+  </div>
+
+  <div class="row" style="padding-left : 60%">
+    <button (click)="close()" class="btn btn-success btn-pill btn-success-color mr-2 mb-3" type="button"
+      style="margin-left: 200px;">
+      <em class="fa fa-chevron-down"></em> {{ 'OkAY'  }}
+    </button>
+
+  </div>
+</ng-template>
+
+<ng-template #modalRappelOpportunity let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title" style="font-weight: bold">{{'REMINDER'  }}</h5>
+    <button (click)="close()" class="close" color="warning">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'PLEASE_PROCESS_THE_FOLLOWING_BOOKINGS'  }}</p>
+    <B *ngFor="let booking of bookings">{{booking.id }} <br></B>
+  </div>
+
+  <div class="row" style="padding-left : 60%">
+    <button (click)="close()" class="btn btn-success btn-pill btn-success-color mr-2 mb-3" type="button"
+      style="margin-left: 200px;">
+      <em class="fa fa-chevron-down"></em> {{ 'OkAY'  }}
+    </button>
+
+  </div>
+</ng-template>

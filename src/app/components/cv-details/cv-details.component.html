@@ -1,0 +1,463 @@
+<div *ngIf="cv?.collaborator && !isCollaborator" class="d-flex justify-content-center">
+   <h1> Collaborateur : {{cv.collaborator.user.email}}</h1>
+
+   </div>
+   <div *ngIf="collaborator && !cv?.collaborator && !isCollaborator" class="d-flex justify-content-center">
+    <h1> Collaborateur : {{collaborator.user.email}}</h1>
+ 
+    </div>
+<mat-tab-group>
+
+
+    <mat-tab label="Informations générales">
+        <div style="min-height: 400px;">
+            <div class="d-flex justify-content-start align-items-center mt-4" style="margin-left: 5%;">
+
+                <img *ngIf="!cv.image || url" [src]="url" alt=""  style="border-radius: 200px;height: 80px; width: 80px;">
+                <img *ngIf="cv.image && !url" [src]="loadedImage" alt=""
+                    style="border-radius: 200px;height: 80px; width: 80px;">
+                <input style="width: 30%;" type="file" (change)="fileChange($event)" id="upload" hidden>
+                <label for="upload"><em class="btn btn-secondary d-flex align-items-center">
+                        Changer <i class="fi fi-sr-cloud-upload-alt"></i></em></label>
+                        
+
+            </div>
+            <div class=" d-flex justify-content-start"  style="margin-left: 5%;">
+                <button *ngIf="url" class="btn btn-success  mt-3"
+                    (click)="uploadPurchaseOrder()">Valider</button>
+            </div>
+            <div class="formStyle mt-5">
+                <form name="editForm">
+                    <div class="mt-4 mb-4">
+                        <div class="d-flex align-items-center mt-2 ">
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Titre</mat-label>
+                                <input matInput placeholder="Address" [(ngModel)]="cv.title" name="title">
+                            </mat-form-field>
+                        </div>
+                        <div class="d-flex align-items-center mt-2 ">
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Address</mat-label>
+                                <input matInput placeholder="Address" [(ngModel)]="cv.address" name="address">
+                            </mat-form-field>
+                        </div>
+                        <div class="d-flex align-items-center mt-2 ">
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Téléphone</mat-label>
+                                <input matInput placeholder="Téléphone" [(ngModel)]="cv.phoneNumber" name="phoneNumber">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="d-flex align-items-center mt-2 ">
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Code postal</mat-label>
+                                <input matInput placeholder="Code postal" type="number" [(ngModel)]="cv.postalCode"
+                                    name="postalCode">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="d-flex align-items-center mt-2 ">
+
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="Email" [(ngModel)]="cv.email" name="email">
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Contenu">
+        <div style="min-height: 400px;">
+            <div class="d-flex justify-content-end mt-4 mr-2">
+                <button class="btn create-btn" (click)="createExperience()"><i
+                        class="fas fa-plus-circle mr-2"></i>Ajouter une
+                    expérience</button>
+            </div>
+            <div class="mt-2 ">
+                <div class="d-flex justify-content-center" *ngIf="cv.experiences.length > 0; else noExperience">
+                    <div style="width: 80%;" class="mb-5">
+                        <h1><i class="fa-solid fa-briefcase mr-2"></i>Expériences</h1>
+                        <div *ngFor="let experience of cv.experiences ">
+                            <mat-expansion-panel hideToggle class="mb-2">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <p style="font-weight: bold; font-size: medium;">{{experience.position}}</p>
+                                    </mat-panel-title>
+                                    <mat-panel-description class="d-flex justify-content-end">
+                                        <div>
+                                            <a class="btn" (click)="openDeleteExperienceModal(experience)"><i
+                                                    class="fa-regular fa-trash-can"></i></a>
+                                            <a class="btn" (click)="openEditExperience(experience)"><i
+                                                    class="fa-solid fa-pen"></i></a>
+                                        </div>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Date début :</p>
+                                    <p>{{experience.startDate | date}}</p>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Date fin :</p>
+                                    <p>{{experience.endDate | date}}</p>
+
+                                </div>
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Entreprise :</p>
+                                    <p>{{experience.company }}</p>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Description :</p>
+                                    <p>{{experience.description }}</p>
+                                </div>
+                            </mat-expansion-panel>
+
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #noExperience>
+                    <div class="d-flex justify-content-center">
+                        <h1>Vous n'avez pas d'expérience insérée </h1>
+                    </div>
+                </ng-template>
+
+            </div>
+            <div class="d-flex justify-content-end mt-4 mr-2">
+                <button class="btn create-btn" (click)="createStudy()"><i class="fas fa-plus-circle mr-2"></i>Ajouter
+                    une
+                    formation</button>
+            </div>
+            <div class="mt-2 ">
+                <div class="d-flex justify-content-center" *ngIf="cv?.studies?.length > 0; else noStudies">
+                    <div style="width: 80%;" class="mb-5">
+                        <h1><i class="fa-solid fa-graduation-cap"></i>Formations</h1>
+                        <div *ngFor="let study of cv.studies ">
+                            <mat-expansion-panel hideToggle class="mb-2">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <p style="font-weight: bold; font-size: medium;">{{study.title}}</p>
+                                    </mat-panel-title>
+                                    <mat-panel-description class="d-flex justify-content-end">
+                                        <div>
+                                            <a class="btn" (click)="openDeleteStudyModal(study)"><i
+                                                    class="fa-regular fa-trash-can"></i></a>
+                                            <a class="btn" (click)="openEditStudy(study)"><i
+                                                    class="fa-solid fa-pen"></i></a>
+
+                                        </div>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Localité :</p>
+                                    <p>{{study.location }}</p>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Etablissement :</p>
+                                    <p>{{study.establishment }}</p>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Date début :</p>
+                                    <p>{{study.startDate | date}}</p>
+                                </div>
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Date fin :</p>
+                                    <p>{{study.endDate | date}}</p>
+
+                                </div>
+                                <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Description :</p>
+                                    <p>{{study.description }}</p>
+                                </div>
+                            </mat-expansion-panel>
+
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #noStudies>
+                    <div class="d-flex justify-content-center">
+                        <h1>Vous n'avez auncune formation insérée </h1>
+                    </div>
+                </ng-template>
+
+            </div>
+
+
+            <div class="d-flex justify-content-end mt-4 mr-2">
+                <button class="btn create-btn" (click)="createSkill()"><i class="fas fa-plus-circle mr-2"></i>Ajouter
+                    une
+                    compétence</button>
+            </div>
+            <div class="mt-2 ">
+                <div class="d-flex justify-content-center" *ngIf="cv?.skills?.length > 0; else noSkill">
+                    <div style="width: 80%;" class="mb-5">
+                        <h1><i class="fa-solid fa-list-check mr-2"></i>Compétences</h1>
+                        <div *ngFor="let skill of cv.skills ">
+                            <mat-expansion-panel hideToggle class="mb-2">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <div class="d-flex align-items-center">
+                                            <p style="font-weight: bold; font-size: medium;">{{skill.name}} : </p>
+                                            <p class="ml-2">{{skill.level }}</p>
+                                        </div>
+
+                                    </mat-panel-title>
+                                    <mat-panel-description class="d-flex justify-content-end">
+                                        <div>
+                                            <a class="btn" (click)="deleteSkill(skill)"><i
+                                                    class="fa-regular fa-trash-can"></i></a>
+                                        </div>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <!--   <div class="d-flex">
+                                    <p class="mr-2" style="font-weight: bold;font-size: small; ">Niveau :</p>
+                                    <p>{{skill.level }}</p>
+                                </div> -->
+
+                            </mat-expansion-panel>
+
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #noSkill>
+                    <div class="d-flex justify-content-center">
+                        <h1>Vous n'avez aucune compétences insérée </h1>
+                    </div>
+                </ng-template>
+
+            </div>
+        </div>
+
+
+
+
+    </mat-tab>
+
+    <mat-tab label="Téléchargement">
+       
+        <app-pdf-generator [_cv]="cv"></app-pdf-generator>
+    
+</mat-tab>
+</mat-tab-group>
+
+<div class="d-flex justify-content-center mt-2">
+    <button class="btn btn-secondary  mr-2 " (click)="backToList()">Annuler</button>
+    <button class="btn btn-success " (click)="saveCv(true)">Sauvegarder le cv</button>
+</div>
+<ng-template #createExperienceModal let-close="close">
+    <div class="modal-header">
+        <div class="d-flex justify-content-start align-items-center">
+            <i class="fa-solid fa-briefcase mr-2"></i> Expérience professionnelle
+        </div>
+
+    </div>
+    <div class="modal-body">
+        <div class="mt-2 d-flex justify-content-center">
+            <div style="min-width: 80% !important;">
+                <div>
+
+
+                    <div class="d-flex align-items-center mt-2 ">
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Poste</mat-label>
+                            <input matInput placeholder="Poste" [(ngModel)]="experience.position" name="position">
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex align-items-center mt-2 ">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Entreprise</mat-label>
+                            <input matInput placeholder="Entreprise" [(ngModel)]="experience.company" name="company">
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex align-items-center mt-2 ">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput placeholder="Description" [(ngModel)]="experience.description" name="description"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-2 ">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Date début</mat-label>
+                            <input matInput [matDatepicker]="startDate" [(ngModel)]="experience.startDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+                            <mat-datepicker #startDate></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Date fin</mat-label>
+                            <input matInput [matDatepicker]="endDate" [min]="experience.startDate"
+                                [disabled]="!experience.startDate" [(ngModel)]="experience.endDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+                            <mat-datepicker #endDate></mat-datepicker>
+                        </mat-form-field>
+                        <!-- <mat-form-field class="example-full-width">
+                            <mat-label>Date début</mat-label>
+                            <input matInput placeholder="Date début" [(ngModel)]="experience.startDate" name="startDate">
+                        </mat-form-field> -->
+                    </div>
+                    <div class="d-flex align-items-center mt-2 ">
+                        <!--   <mat-form-field class="example-full-width">
+                            <mat-label>Date fin</mat-label>
+                            <input matInput placeholder="Date fin" [(ngModel)]="experience.endDate" name="endDate">
+                        </mat-form-field> -->
+
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-2">
+                    <button class="btn btn-secondary mr-2" (click)="cancelExperience()">Annuler</button>
+                    <button class="btn btn-success " (click)="saveExperience()">Sauvegarder</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #deleteExperienceModal let-close="close">
+    <div class="modal-header">
+        <div class="d-flex justify-content-start align-items-center">
+            <h1>Suppression d'expérience</h1>
+        </div>
+    </div>
+    <div class="modal-body">
+        êtes-vous sûr de vouloir supprimer cette expérience ?
+        <div class="d-flex justify-content-center mt-2">
+            <button class="btn btn-secondary mr-2" (click)="cancelExperience()">Annuler</button>
+            <button class="btn btn-danger " (click)="deleteExperience()">Supprimer</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #deleteStudyModal let-close="close">
+    <div class="modal-header">
+        <div class="d-flex justify-content-start align-items-center">
+            <h1>Suppression de formation</h1>
+        </div>
+    </div>
+    <div class="modal-body">
+        êtes-vous sûr de vouloir supprimer cette formation ?
+        <div class="d-flex justify-content-center mt-2">
+            <button class="btn btn-secondary mr-2" (click)="cancelExperience()">Annuler</button>
+            <button class="btn btn-danger " (click)="deleteExperience()">Supprimer</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #createStudyModal let-close="close">
+    <div class="modal-header">
+        <div class="d-flex justify-content-start align-items-center">
+            <i class="fa-solid fa-graduation-cap mr-2"></i>Formation scolaire
+        </div>
+
+    </div>
+    <div class="modal-body">
+        <div class="mt-2 d-flex justify-content-center">
+            <div style="min-width: 80% !important;">
+                <div>
+                    <div class="d-flex align-items-center mt-2 ">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Formation scolaire</mat-label>
+                            <input matInput placeholder="Formation scolaire" [(ngModel)]="study.title" name="title">
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex align-items-center mt-2 ">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Localité</mat-label>
+                            <input matInput placeholder="Localité" [(ngModel)]="study.location" name="location">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="d-flex align-items-center mt-2 ">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Etablissement</mat-label>
+                            <input matInput placeholder="Etablissement" [(ngModel)]="study.establishment"
+                                name="establishment">
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2 ">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Date début</mat-label>
+                            <input matInput [matDatepicker]="startDate" [(ngModel)]="study.startDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+                            <mat-datepicker #startDate></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Date fin</mat-label>
+                            <input matInput [matDatepicker]="endDate" [min]="study.startDate"
+                                [disabled]="!study.startDate" [(ngModel)]="study.endDate">
+                            <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+                            <mat-datepicker #endDate></mat-datepicker>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="d-flex align-items-center mt-2 ">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput placeholder="Description" [(ngModel)]="experience.description"
+                                name="description"></textarea>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-2">
+                    <button class="btn btn-secondary mr-2" (click)="cancelStudy()">Annuler</button>
+                    <button class="btn btn-success " (click)="saveStudy()">Sauvegarder</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #createSkillModal let-close="close">
+    <div class="modal-header">
+        <div class="d-flex justify-content-start align-items-center">
+            <i class="fa-solid fa-list-check mr-2"></i> Compétence
+        </div>
+
+    </div>
+    <div class="modal-body">
+        <div class="mt-2 d-flex justify-content-center">
+            <div style="min-width: 80% !important;">
+                <div>
+                    <div class="d-flex align-items-center mt-2 ">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Compétence</mat-label>
+                            <input matInput placeholder="Compétence" [(ngModel)]="skill.name" name="name">
+                        </mat-form-field>
+                    </div>
+                    <div class="d-flex align-items-center mt-2 ">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Niveau</mat-label>
+                            <mat-select [(ngModel)]="skill.level" name="level">
+                                <mat-option *ngFor="let level of levels" [value]="level">
+                                    {{level}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-2">
+                    <button class="btn btn-secondary mr-2" (click)="cancelExperience()">Annuler</button>
+                    <button class="btn btn-success " (click)="saveSkill()">Sauvegarder</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,40 @@
+<div class="formStyle mt-5">
+    <form name="editForm">
+        <div class="mt-4 mb-4">
+            <div class="d-flex align-items-center mt-2 ">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" [(ngModel)]="collaborator.user.email" name="address">
+                </mat-form-field>
+            </div>
+            <div class="d-flex align-items-center mt-2 ">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Prénom</mat-label>
+                    <input matInput placeholder="Prénom" [(ngModel)]="collaborator.user.firstName" name="firstName">
+                </mat-form-field>
+            </div>
+            <div class="d-flex align-items-center mt-2 ">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nom</mat-label>
+                    <input matInput placeholder="Nom" [(ngModel)]="collaborator.user.lastName" name="lastName">
+                </mat-form-field>
+            </div>
+   
+            <div class="d-flex align-items-center mt-2 " *ngIf="!collaborator.id">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput placeholder="Nom" type="password" [(ngModel)]="collaborator.user.password" name="password">
+                </mat-form-field>
+            </div>
+
+            <div class="d-flex justify-content-start align-items-center mt-2 ml-3 " *ngIf="collaborator.id">
+                <h1 style="margin-bottom: auto;" class="mr-3">Cv :</h1> <a [routerLink]="['/hr-collaborator-cv/'+collaborator.id]" routerLinkActive="router-link-active" >Voir</a> 
+            </div>
+        </div>
+    </form>
+
+    <div class="d-flex justify-content-center mt-2">
+        <button class="btn btn-secondary  mr-2 " (click)="backToList()">Annuler</button>
+        <button class="btn btn-success " (click)="saveCollaborator()">Sauvegarder </button>
+    </div>
+</div>

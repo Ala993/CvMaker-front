@@ -1,0 +1,69 @@
+/* You can add global styles to this file, and also import other style files */
+.formStyle {
+  background-color: white;
+  padding: 10px;
+  width: 90%;
+  margin: auto;
+  border-radius: 0.5rem;
+  box-shadow: rgb(42 44 47 / 20%) 0px 8px 16px 0px;
+  margin-bottom: 4% !important;
+  margin-top: 1% !important;
+}
+
+.input-wrapper {
+  height: 41px;
+  width: 90%
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::ng-deep .mdc-data-table__table {
+  width: 80% !important;
+}
+
+.create-btn {
+  color: white;
+  background-color: rgb(250, 191, 89);
+  border-radius: 30px !important;
+}
+.example-full-width {
+  width: 100%;
+}
+.btn{
+  border-radius: 30px !important;
+}
+
+
+::ng-deep .mat-datepicker-toggle {
+  z-index: 1070; /* or any number greater than the z-index of your modal */
+}
+::ng-deep .cdk-overlay-container mat-datepicker-content{
+  z-index:2000 !important;
+}
+::ng-deep .modal-open .modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900 !important;
+  display: none;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
+.modal-backdrop {
+     z-index: 900 !important;
+}
+
+.modal{
+  z-index: 900 !important;
+}

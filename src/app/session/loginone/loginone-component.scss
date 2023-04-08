@@ -1,0 +1,51 @@
+hr.new1 {
+  width: 100%;
+  margin-top: 3%;
+  border-top: 1px solid #9e9e9e;
+}
+.logo-sign img{
+  width: 90%;
+}
+.responsive-login-panel{
+  width: 30rem;
+}
+@media (max-width: 1149px) {
+  .responsive-left-image {
+    display: none;
+  }
+  .responsive-login-panel {
+    width: auto;
+  }
+}
+
+@media (max-width: 1149px) {
+  .loginone-wrapper{
+    background: white;
+  }
+  .login-inner-wrapper-2 {
+    margin: 10px;
+  }
+/*   .d-flex {
+    display: inherit !important;
+  } */
+  .mmeetings-login-wrapper {
+    background: white;
+  }
+  .shadow-box, .chk-block {
+    box-shadow: none;
+  }
+  body{
+    background: white;
+  }
+}
+
+.myCustomModalClass{
+  margin-top: 230px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent !important;
+ 
+}

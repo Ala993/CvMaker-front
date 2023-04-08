@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #3f51b5">
+    <a class="navbar-brand" href="#"><i class="fa-regular fa-copyright"></i> Maker</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav d-flex ">
+                <li class="nav-item active">
+                    <a class="nav-link"[routerLink]="['/']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="router-link-active">Home</a>
+                </li>
+                <li class="nav-item" *ngIf="isHr">
+                    <a class="nav-link" [routerLink]="['/cv']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="router-link-active">CVs</a>
+                </li>
+                <li class="nav-item" *ngIf="isHr">
+                    <a class="nav-link" [routerLink]="['/collaborators']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="router-link-active">Collaborateurs</a>
+                </li>
+                <li class="nav-item" *ngIf="isCollaborator">
+                    <a class="nav-link" [routerLink]="['/mon-cv']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="router-link-active">Mon CV</a>
+                </li>
+            
+        </ul>
+        <ul class="navbar-nav ">
+            <li class="nav-item ">
+                <a style="cursor: pointer;" class="nav-link"  (click)="logout()">Déconnexion </a>
+            </li>
+        
+        </ul>
+    </div>
+</nav>
