@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CvFilter } from 'app/modules/cv-filter.model';
 import { Cv } from 'app/modules/cv.model';
+import { Skill } from 'app/modules/skill.model';
 import { CvService } from 'app/services/cv.service';
 
 @Component({
@@ -9,8 +11,10 @@ import { CvService } from 'app/services/cv.service';
 })
 export class CvListComponent implements OnInit{
   displayedColumns: string[] = ['email', 'address', 'phoneNumber', 'action'];
+  levels: string[] = ["Trés bon", "Bon", "Intermédiaire", "Débutant"];
   dataSource = [];
   cvs: Cv[] = [];
+  cvFilter = new CvFilter();
   constructor(
     private cvService : CvService
     ) {}
@@ -28,6 +32,19 @@ export class CvListComponent implements OnInit{
   deleteCv(element){
     this.cvService.deleteCv(element.id).subscribe(res => {
       this.findAllCvs()
+    })
+  }
+
+  addFilterSkill(){
+    this.cvFilter.skills.push(new Skill());
+  }
+
+  search(){
+    this.cvService.findCvsByFilter(this.cvFilter).subscribe(res => {
+      this.cvs =res;
+      this.dataSource = this.cvs
+      console.log(this.dataSource);
+      
     })
   }
 }

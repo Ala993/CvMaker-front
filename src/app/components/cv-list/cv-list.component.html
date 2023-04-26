@@ -1,8 +1,28 @@
-<!-- <div class="d-flex justify-content-end">
-  <button class="btn create-btn" [routerLink]="['/details']" routerLinkActive="router-link-active">
-    <i class="fas fa-plus-circle mr-2"></i>Ajouter un cv</button>
-</div> -->
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 80px !important; margin-top: 20px;">
+<div>
+  <button class="btn btn-secondary mb-2" (click)="addFilterSkill()">Ajouter un critère</button>
+  <button class="btn btn-secondary mb-2 ml-2" *ngIf="cvFilter.skills.length > 0"
+    (click)="cvFilter.skills = []; search() ">Réinitialiser</button>
+</div>
+<div *ngFor="let skill of cvFilter.skills; let index = index">
+  <div style="width: 30%;" class="d-flex">
+    <mat-form-field class="example-full-width mr-2">
+      <input matInput placeholder="name" [(ngModel)]="skill.name" name="{{'name'+index}}">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-select [(ngModel)]="skill.level" name="level">
+        <mat-option *ngFor="let level of levels" [value]="level">
+          {{level}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+</div>
+
+<button class="btn btn-success" *ngIf="cvFilter.skills.length > 0" (click)="search()">Rechercher</button>
+<table *ngIf="cvs.length > 0; else noCv" mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+  style="width: 80px !important; margin-top: 20px;">
 
   <ng-container matColumnDef="email">
     <th mat-header-cell *matHeaderCellDef> Email </th>
@@ -21,13 +41,21 @@
 
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> </th>
-    <td mat-cell *matCellDef="let element"> 
-      <a [routerLink]="['/details/'+element.id]"routerLinkActive="router-link-active"><i class="fa-regular fa-pen-to-square" style="color: black;"></i></a>
-      <a (click)="deleteCv(element)" style="cursor: pointer;" class="ml-2"><i class="fa-regular fa-trash-can" style="color: black;"></i></a> 
+    <td mat-cell *matCellDef="let element">
+      <a [routerLink]="['/details/'+element.id]" routerLinkActive="router-link-active"><i
+          class="fa-regular fa-pen-to-square" style="color: black;"></i></a>
+      <a (click)="deleteCv(element)" style="cursor: pointer;" class="ml-2"><i class="fa-regular fa-trash-can"
+          style="color: black;"></i></a>
     </td>
-  
-    </ng-container>
+
+  </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<ng-template #noCv>
+  <div class="d-flex justify-content-center mt-5">
+    <h1>Aucun cv trouvé </h1>
+  </div>
+</ng-template>

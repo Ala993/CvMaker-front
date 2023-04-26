@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Collaborator } from 'app/modules/collaborator.model';
+import { UserPassword } from 'app/modules/password.model';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -30,5 +31,9 @@ export class AccountService {
   }
   findCollaboratorById(id:string): Observable<Collaborator>{
     return this.http.get(environment.apiUrl+"api/collaborators/"+id)
+  }
+
+  changePassword(userId,password : UserPassword){
+    return this.http.post(environment.apiUrl+"api/admin/user-change-password/"+userId,password )
   }
 }

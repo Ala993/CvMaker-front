@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CollaboratorDetailsComponent } from './components/collaborator-details/collaborator-details.component';
 import { CollaboratorsComponent } from './components/collaborators/collaborators.component';
 import { CvDetailsComponent } from './components/cv-details/cv-details.component';
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path:'collaborator-details/:id',
     component: CollaboratorDetailsComponent
+  },
+  {
+    path:'change-password',
+    component: ChangePasswordComponent
   }
   
 

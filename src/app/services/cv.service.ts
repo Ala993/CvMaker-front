@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cv } from '../modules/cv.model';
 import { environment } from 'environments/environment';
+import { CvFilter } from 'app/modules/cv-filter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class CvService {
 
   deleteCv(id:string){
     return this.httpClient.delete(environment.apiUrl+"api/cvs/"+id)
+  }
+
+  findCvsByFilter(cvFilter: CvFilter): Observable<Cv[]>{
+    return this.httpClient.post<Cv[]>(environment.apiUrl+"api/cvs-filtered", cvFilter);
   }
 }

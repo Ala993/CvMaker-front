@@ -29,6 +29,7 @@ import { Injector } from '@angular/core';
 import { ServiceLocator } from './service/ServiceLocator';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import localeFr from '@angular/common/locales/fr';
     HomeComponent,
     PdfGeneratorComponent,
     CollaboratorsComponent,
-    CollaboratorDetailsComponent
+    CollaboratorDetailsComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

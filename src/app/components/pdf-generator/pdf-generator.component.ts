@@ -46,7 +46,7 @@ export class PdfGeneratorComponent implements OnInit {
     let pdf =new jsPDF('p', 'pt','a4',true);
     pdf.html(this.el.nativeElement, {
       callback: (pdf) => {
-        pdf.save("sample.pdf")
+        pdf.save(this.cv.collaborator.user.firstName +" " + this.cv.collaborator.user.lastName + ".pdf")
       }
     })
 
