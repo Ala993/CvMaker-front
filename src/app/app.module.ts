@@ -30,6 +30,8 @@ import { ServiceLocator } from './service/ServiceLocator';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { HumanResourcesComponent } from './components/human-resources/human-resources.component';
+import { HumanResourceDetailsComponent } from './components/human-resource-details/human-resource-details.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     PdfGeneratorComponent,
     CollaboratorsComponent,
     CollaboratorDetailsComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    HumanResourcesComponent,
+    HumanResourceDetailsComponent
   ],
   imports: [
     BrowserModule,

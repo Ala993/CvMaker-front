@@ -18,7 +18,7 @@ export interface IUser {
   phoneNumber2?: string;
   lastModifiedBy?: string;
   lastModifiedDate?: Date;
-  authorities?: string[],
+  authorities?: any[],
 
 }
 
@@ -40,7 +40,7 @@ export class User implements IUser {
               public phoneNumber1?: string,
               public phoneNumber2?: string,
               public lastModifiedDate?: Date,
-              public authorities?: string[],
+              public authorities?: any[],
 
   ) {
     this.id = id ? id : null;

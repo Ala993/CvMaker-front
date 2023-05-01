@@ -11,6 +11,7 @@ import { LoginService } from 'app/session/loginone/login.service';
 export class HeaderComponent implements OnInit {
   isCollaborator=false;
   isHr = false;
+  isAdmin= false;
   constructor(
     private accountService : AccountService,
     private loginService : LoginService
@@ -22,6 +23,14 @@ export class HeaderComponent implements OnInit {
       if(res == "COLLABORATOR"){
         this.isCollaborator = true;
       }else this.isHr=true;
+    });
+
+    this.accountService.getCurrentUser().subscribe(res => {
+      res.authorities.forEach(auth => {
+        if(auth.name == "ROLE_ADMIN"){
+          this.isAdmin = true;
+        }
+      })      
     })
   }
 

@@ -6,6 +6,8 @@ import { CollaboratorsComponent } from './components/collaborators/collaborators
 import { CvDetailsComponent } from './components/cv-details/cv-details.component';
 import { CvListComponent } from './components/cv-list/cv-list.component';
 import { HomeComponent } from './components/home/home.component';
+import { HumanResourceDetailsComponent } from './components/human-resource-details/human-resource-details.component';
+import { HumanResourcesComponent } from './components/human-resources/human-resources.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
@@ -25,6 +27,19 @@ const routes: Routes = [
   {
     path: 'cv',
     component: CvListComponent
+  },
+  {
+    path: 'human-resources',
+    component: HumanResourcesComponent
+
+  },
+  {
+    path: 'human-resource-details',
+    component: HumanResourceDetailsComponent
+  },
+  {
+    path: 'human-resource-details/:id',
+    component: HumanResourceDetailsComponent
   },
   {
     path: 'details',
