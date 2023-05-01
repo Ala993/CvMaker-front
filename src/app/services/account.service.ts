@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Collaborator } from 'app/modules/collaborator.model';
 import { UserPassword } from 'app/modules/password.model';
+import { User } from 'app/modules/user.model';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -15,6 +16,11 @@ export class AccountService {
 
   getCurrentUserType(){
     return this.http.get(environment.apiUrl+"api/admin/user-type",{responseType: 'text'});
+  }
+
+  
+  getCurrentUser(): Observable<User>{
+    return this.http.get(environment.apiUrl+"api/admin/current-user");
   }
 
   findCollaboratorByCurrentUser(){
